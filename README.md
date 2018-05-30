@@ -31,6 +31,7 @@ bash Busco_run_sp2.sh
 Outfiles:
 * run_sp1_BUSCO_v2 
 * run_sp1_BUSCO_v2
+
 With inside these folders, the Busco sequences in aa and dna formats "single_copy_busco_sequences", a short summary of Busco found and the retraining parameters for Augustus "/augustus_output/retraining_parameters".
 
 Now that we got the Busco output files, we'll keep only completes and conserved sequences into both species.
