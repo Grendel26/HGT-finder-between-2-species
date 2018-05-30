@@ -107,13 +107,12 @@ Database (-d is the output db file in .dmnd extention)
 Let's now make a Blastp all against all with Diamond:
 
 #DIAMOND
-```Diamond=/Users/etudiant/Downloads/diamond-master/bin/diamond
-nr=Augustus_diamond_0035_0042.dmnd
-out=matches_Augustus_0035_0042.m8
-```
+```Diamond=/Users/etudiant/Downloads/diamond-master/bin/diamond```
+```nr=Augustus_diamond_0035_0042.dmnd```
+```out=matches_Augustus_0035_0042.m8```
+
 #Database
 ```protein_fasta=concatenate_0035_0042.faa```
-
 ```$Diamond blastp -d $nr -q $protein_fasta  -o $out```
 
 Finnaly, we'll have to get cluster of these sequences with Silix:
