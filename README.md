@@ -1,5 +1,5 @@
 
-# HORIZONA is a program coded essentially in python3.5 through the Horizon project (all python codes are made by hand and calling other packages already written). Its aim is to find horizontal gene transfers between two distantly related species.
+## HORIZONA is a program coded essentially in python3.5 through the Horizon project (all python codes are made by hand and calling other packages already written). Its aim is to find horizontal gene transfers between two distantly related species.
 
 
 ### Prerequisites
@@ -196,7 +196,7 @@ Output files for sp1:
 
 
 Now that you got all the candidate genes, you'll have to do multiples thing to check if your candidate is as real HGT and integrated.
-# Here are the steps:
+## Here are the steps:
 
 1 - Construct a phylogenetic tree and see if there is an incongruence:
 1.1 - Take your target sequence in amino acide format and make a research of homologous sequences against the nr databe.
