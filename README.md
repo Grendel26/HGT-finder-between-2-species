@@ -24,7 +24,8 @@ For the taxid informations, see the Peter Thorpe's instuctions here: [Instructio
 ###For the process to be more accessible and understandable by everyone, we will name in this example the species 1: ```0035``` and the species 2: ```0042```
 
 Let's run Busco to find conserved unique genes inside our 2 genomes: (please change informations inside these files to fit with your data)
-```bash Busco_run_sp1.sh
+```
+bash Busco_run_sp1.sh
 bash Busco_run_sp2.sh
 ```
 Outfiles:
