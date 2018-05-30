@@ -34,8 +34,10 @@ Outfiles:
 With inside these folders, the Busco sequences in aa and dna formats "single_copy_busco_sequences", a short summary of Busco found and the retraining parameters for Augustus "/augustus_output/retraining_parameters".
 
 Now that we got the Busco output files, we'll keep only completes and conserved sequences into both species.
-```python3 Order_paired_seq.py  -s1 0035 -s2 0042 -d1 /Users/etudiant/Desktop/Horizon_project/Buscou.out/single_copy_busco_sequences_0035/ -d2 /Users/etudiant/Desktop/Horizon_project/Buscou.out/single_copy_busco_sequences_0042/ -t1 full_table_ACG-0035_BUSCO_v2.tsv -t2 full_table_ACG-0042_BUSCO_v2.tsv
 ```
+python3 Order_paired_seq.py  -s1 0035 -s2 0042 -d1 /Buscou.out/single_copy_busco_sequences_0035/ -d2 Buscou.out/single_copy_busco_sequences_0042/ -t1 full_table_ACG-0035_BUSCO_v2.tsv -t2 full_table_ACG-0042_BUSCO_v2.tsv
+```
+
 Outifiles:
 * sp1.faa (amino acide format)
 * sp2.faa
@@ -43,8 +45,7 @@ Outifiles:
 * sp2.fna
 
 Then, you'll get 4 fasta files ready to be analyzed with the divergence.py program: 
-```
-python3 divergence.py -f1 0035.fna -f2 0042.fna -f3 0035.faa -f4 0042.fna -m ML -a /Users/etudiant/Downloads/muscle3.8.31_i86darwin64 -o dn_ds_Busco.out 
+```python3 divergence.py -f1 0035.fna -f2 0042.fna -f3 0035.faa -f4 0042.fna -m ML -a /Users/etudiant/Downloads/muscle3.8.31_i86darwin64 -o dn_ds_Busco.out 
 ```
 Outfiles:
 * dn_ds_Busco.out  
