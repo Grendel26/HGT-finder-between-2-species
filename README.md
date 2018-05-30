@@ -101,27 +101,29 @@ Outfiles:
 DIAMOND
 ```Diamond=/Users/etudiant/Downloads/diamond-master/bin/diamond```
 Database (-d is the output db file in .dmnd extention)
-```protein_fasta=concatenate_0035_0042.faa ```
-```$Diamond makedb --in $protein_fasta -d Augustus_diamond_0035_0042```
+```protein_fasta=concatenate_0035_0042.faa 
+$Diamond makedb --in $protein_fasta -d Augustus_diamond_0035_0042
+```
 
 Let's now make a Blastp all against all with Diamond:
 
 #DIAMOND
-```Diamond=/Users/etudiant/Downloads/diamond-master/bin/diamond```
-```nr=Augustus_diamond_0035_0042.dmnd```
-```out=matches_Augustus_0035_0042.m8```
+```Diamond=/Users/etudiant/Downloads/diamond-master/bin/diamond
+nr=Augustus_diamond_0035_0042.dmnd
+out=matches_Augustus_0035_0042.m8
+```
 
 #Database
-```protein_fasta=concatenate_0035_0042.faa```
-```$Diamond blastp -d $nr -q $protein_fasta  -o $out```
-
+```protein_fasta=concatenate_0035_0042.faa
+$Diamond blastp -d $nr -q $protein_fasta  -o $out
+```
 Finnaly, we'll have to get cluster of these sequences with Silix:
 #SOFTWARE
 ```SILIX=/Users/etudiant/Downloads/silix-1.2.10-p1/src/silix```
 
 #DATASET USED
 ```BLAST=matches_Augustus_0035_0042.m8 
-FASTA=concatenate_0035_0042.faa```
+FASTA=concatenate_0035_0042.faa
 
 $SILIX  $FASTA $BLAST -f cluster_ -n > cluster_Augustus_0035_0042.fnodes
 ```
