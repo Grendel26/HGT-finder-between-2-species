@@ -6,14 +6,14 @@
 
 What things you need to install:
 
-BUSCO V2 or v3 (BUSCO genes prediction): [BUSCO software](http://busco.ezlab.org/)      
-AUGUSTUS (genes prediction): [AUGUSTUS](http://bioinf.uni-greifswald.de/augustus/downloads/) 
-PYTHON 3 : [PYTHON 3](https://www.python.org/downloads/)
+* BUSCO V2 or v3 (BUSCO genes prediction): [BUSCO software](http://busco.ezlab.org/)      
+* AUGUSTUS (genes prediction): [AUGUSTUS](http://bioinf.uni-greifswald.de/augustus/downloads/) 
+* PYTHON 3 : [PYTHON 3](https://www.python.org/downloads/)
 (use conda to install all dependency such as numpy, pandas, biopython etc.)
-Gffread (deal with augustus output): [Gffread](https://github.com/gpertea/gffread)
-Diamond (make a quick blastp to find homologous genes): [Diamond](https://github.com/bbuchfink/diamond)
-Silix (creat cluster within genes): [SiliX](http://lbbe.univ-lyon1.fr/Download.html) ask the authors for the version "silix-1.2.10-p1" 
-Seaview (build a tree): [SeaView](http://doua.prabi.fr/software/seaview)
+* Gffread (deal with augustus output): [Gffread](https://github.com/gpertea/gffread)
+* Diamond (make a quick blastp to find homologous genes): [Diamond](https://github.com/bbuchfink/diamond)
+* Silix (creat cluster within genes): [SiliX](http://lbbe.univ-lyon1.fr/Download.html) ask the authors for the version "silix-1.2.10-p1" 
+* Seaview (build a tree): [SeaView](http://doua.prabi.fr/software/seaview)
 
 Databases: 
 the nr database available here: [nr db](ftp://ftp.ncbi.nlm.nih.gov/blast/db/nr.00.tar.gz) (huge file)
