@@ -19,6 +19,7 @@ Databases:
 the nr database available here: [nr db](ftp://ftp.ncbi.nlm.nih.gov/blast/db/nr.00.tar.gz) (huge file)
 For the taxid informations, see the Peter Thorpe's instuctions here: [Instructions](https://github.com/peterthorpe5/public_scripts/tree/master/Diamond_BLAST_add_taxonomic_info)
 
+### Run example
 
 ###For the process to be more accessible and understandable by everyone, we will name in this example the species 1: '0035' and the species 2: '0042'
 
@@ -27,23 +28,23 @@ For the taxid informations, see the Peter Thorpe's instuctions here: [Instructio
 bash Busco_run_sp2.sh
 ```
 #Outfiles:
-*run_sp1_BUSCO_v2 
-*run_sp1_BUSCO_v2
+* run_sp1_BUSCO_v2 
+* run_sp1_BUSCO_v2
 With inside these folders, the Busco sequences in aa and dna formats "single_copy_busco_sequences", a short summary of Busco found and the retraining parameters for Augustus "/augustus_output/retraining_parameters".
 
 #Now that we got the Busco output files, we'll keep only completes and conserved sequences into both species.
 ```python3 Order_paired_seq.py  -s1 0035 -s2 0042 -d1 /Users/etudiant/Desktop/Horizon_project/Buscou.out/single_copy_busco_sequences_0035/ -d2 /Users/etudiant/Desktop/Horizon_project/Buscou.out/single_copy_busco_sequences_0042/ -t1 full_table_ACG-0035_BUSCO_v2.tsv -t2 full_table_ACG-0042_BUSCO_v2.tsv
 ```
 #Outifiles:
-*sp1.faa (amino acide format)
-*sp2.faa
-*sp1.fna (nucleotide format)
-*sp2.fna
+* sp1.faa (amino acide format)
+* sp2.faa
+* sp1.fna (nucleotide format)
+* sp2.fna
 
 #Then, you'll get 4 fasta files ready to be analyzed with the divergence.py program: 
 python3 divergence.py -f1 0035.fna -f2 0042.fna -f3 0035.faa -f4 0042.fna -m ML -a /Users/etudiant/Downloads/muscle3.8.31_i86darwin64 -o dn_ds_Busco.out 
 #Outfiles:
-*dn_ds_Busco.out  
+* dn_ds_Busco.out  
 
 #Here you got the distances of Busco paired sequences with a ML method.
 
@@ -55,7 +56,7 @@ bash augustus_run_sp2_training_sp1.sh #outfile : run_augustus_sp2_training_sp1.o
 ```
 
 #Now that you got the augustus ouptufiles in gff format, you'll have to get the fasta format of the CDS sequences (takes the phase into account as expected -x option and so does the -y option for protein).
-*-g ACG-0035-scaffold.fa  is the genome file of the sp1 for exemple.
+* -g ACG-0035-scaffold.fa  is the genome file of the sp1 for exemple.
 
 ```/Users/etudiant/Downloads/gffread-0.9.9-0/bin/gffread /Users/etudiant/Desktop/Horizon_project/Augustus/Augustus_out/run_augustus_sp1_training_sp1.out -g /Users/etudiant/Desktop/Horizon_project/Buscou.out/ACG-0035-scaffold.fa -x run_augustus_sp1_training_sp1.out.fna -y run_augustus_sp1_training_sp1.out.faa
 
@@ -88,8 +89,8 @@ sed 's/\(.t1\)/\1_0042_0035/' run_augustus_sp2_training_sp1.out.fna > augustus_s
 cat augustus_sp1_training_sp1.out.fna augustus_sp1_training_sp2.out.fna augustus_sp2_training_sp2.out.fna augustus_sp2_training_sp1.out.fna > concatenate_0035_0042.fna
 ```
 #Outfiles:
-*concatenate_0035_0042.faa 
-*concatenate_0035_0042.fna
+* concatenate_0035_0042.faa 
+* concatenate_0035_0042.fna
 
 #Then, we will perform a Diamond "all against all" and a SiLix run on these amino acide sequences to find homologous sequences and to only keep the best ones within each cluster :
 
@@ -129,16 +130,16 @@ $SILIX  $FASTA $BLAST -f cluster_ -n > cluster_Augustus_0035_0042.fnodes
 python3 cluster_silix_merging.py -b matches_Augustus_0035_0042.m8 -c cluster_Augustus_0035_0042.fnodes -d matches_Augustus_0035_0042.net -f1 concatenate_0035_0042.faa -f2 concatenate_0035_0042.fna 
 ```
 #Outfiles: These files are the files were are only present homologous sequences whith the best pident within each cluster. In order. 
-*clusters1_aa.fasta
-*clusters2_aa.fasta
-*clusters1_dna.fasta
-*clusters2_dna.fasta
+* clusters1_aa.fasta
+* clusters2_aa.fasta
+* clusters1_dna.fasta
+* clusters2_dna.fasta
 
 #Then, we will calculate the distances values of all these predicted paired genes: (the fact to add -names will re-organise the dN_dS output tab)
 ```python3 divergence.py -f1 clusters1_dna.fasta -f2 clusters2_dna.fasta -f3 clusters1_aa.fasta -f4 clusters2_aa.fasta -m ML -a /Users/etudiant/Downloads/muscle3.8.31_i86darwin64 -n1 0035 -n2 0042 -o dn_ds_Augustus.out
 ```
 #Outfile:
-*dn_ds_Augustus.out 
+* dn_ds_Augustus.out 
 
 #We will only keep within all these paired sequences the ones wich have passed through the p.value and the Cov thresholds:
 ```python3 gff_cov.py -d1 dn_ds_Busco.out -d2 dn_ds_Augustus.out  -s1 0035 -s2 0042 -c1 cov_GC_0035.tab -c2 cov_GC_0042.tab -g1 run_augustus_0035.out -g2 run_augustus_0035_training_0042.out -g3 run_augustus_0042.out -g4 run_augustus_0042_training_0035.out -g5 gff_Busco_0035 -g6 gff_Busco_0042
@@ -146,15 +147,15 @@ python3 cluster_silix_merging.py -b matches_Augustus_0035_0042.m8 -c cluster_Aug
 
 #Outfiles:
 
-*candidates_genes_pvalue_cov_0035_0042.tab (Final output with candidates genes predicted by Augustus after passing through the filter p-value and coverage)
-*Augustus_clustering.tab (Outut table of Augustus predicted genes after passing through the clustering filter (max pident within each cluster)
-*candidates_genes_pvalue_0035_0042.tab (Final output with candidates genes predicted by Augustus after passing through the filter p-value:)
+* candidates_genes_pvalue_cov_0035_0042.tab (Final output with candidates genes predicted by Augustus after passing through the filter p-value and coverage)
+* Augustus_clustering.tab (Outut table of Augustus predicted genes after passing through the clustering filter (max pident within each cluster)
+* candidates_genes_pvalue_0035_0042.tab (Final output with candidates genes predicted by Augustus after passing through the filter p-value:)
 
 #Final fasta output with candidates genes predicted by Augustus after passing through the filter p-value (this file will be usefull for the blast against the nr db step).
-*candidates_aa_pvalue_0035.fasta
-*candidates_aa_pvalue_0042.fasta
-*candidates_dna_pvalue_0035.fasta
-*candidates_dna_pvalue_0042.fasta
+* candidates_aa_pvalue_0035.fasta
+* candidates_aa_pvalue_0042.fasta
+* candidates_dna_pvalue_0035.fasta
+* candidates_dna_pvalue_0042.fasta
 
 #The following steps will have to be done with a program developped by Peter Thorpe, all needed files are available here : (https://github.com/peterthorpe5/public_scripts/tree/master/Diamond_BLAST_add_taxonomic_info)
 
@@ -165,8 +166,8 @@ bash Diamond_blastp_sp2_candidates.sh
 ```
 
 #Outfiles:
-*matches_sp1_candidates.m8 (blast output table of the sp1)
-*matches_sp2_candidates.m8 (blast output table of the sp2)
+* matches_sp1_candidates.m8 (blast output table of the sp1)
+* matches_sp2_candidates.m8 (blast output table of the sp2)
 
 #Finnaly to be more readable, we can get taxid informations about these HGT candidates genes.(cf Peter Thorpe program).
 ```bash tax_name_sp1.sh
@@ -174,22 +175,22 @@ bash tax_name_sp2.sh
 ```
 
 #Output files for sp1:
-*outfile_0035.tab (Blast output table with taxid informations)
-*outfile_0035.tab_top_blast_hits.out (Best blast output table with taxid informations)
-*outfile_0035.tab_top_blast_hits.out_based_on_order_tax_king.tab
-*outfile_0035.tab_top_blast_hits.out_histogram.png (Summary plot of the blast result)
+* outfile_0035.tab (Blast output table with taxid informations)
+* outfile_0035.tab_top_blast_hits.out (Best blast output table with taxid informations)
+* outfile_0035.tab_top_blast_hits.out_based_on_order_tax_king.tab
+* outfile_0035.tab_top_blast_hits.out_histogram.png (Summary plot of the blast result)
 
 
 #Now that you got all the candidate genes, you'll have to do multiples thing to check if your candidate is as real HGT and integrated.
 # Here are the steps:
 
-1- Construct a phylogenetic tree and see if there is an incongruence:
-1.1- Take your target sequence in amino acide format and make a research of homologous sequences against the nr databe.
-1.2- Align all these sequences with Seaview (Gouy M et al.,2010 available here : http://doua.prabi.fr/software/seaview) for exemple, align all these sequences and use Gblocks program to select only blocks of evolutionarily conserved sites.
-1.3- Construct your tree with a Maximum likelihood method (or a baysian method, not availabe on seaview but you can use MrBaye) and add boostrap analysis (or a LRT if you want to be faster).
-1.4- If their is an incongruence and a good bootstrap support, then your sequence is probably an HGT since the two species are diverging from a long time. 
+1 - Construct a phylogenetic tree and see if there is an incongruence:
+1.1 - Take your target sequence in amino acide format and make a research of homologous sequences against the nr databe.
+1.2 - Align all these sequences with Seaview (Gouy M et al.,2010 available here : http://doua.prabi.fr/software/seaview) for exemple, align all these sequences and use Gblocks program to select only blocks of evolutionarily conserved sites.
+1.3 - Construct your tree with a Maximum likelihood method (or a baysian method, not availabe on seaview but you can use MrBaye) and add boostrap analysis (or a LRT if you want to be faster).
+1.4 - If their is an incongruence and a good bootstrap support, then your sequence is probably an HGT since the two species are diverging from a long time. 
 
-2- Check if this sequence is a contamination, not integrated one or if it is incorporated into the host genome:
+2 - Check if this sequence is a contamination, not integrated one or if it is incorporated into the host genome:
 2.1- If this sequence is found in a scaffold where you have found other predicted genes or even BUSCO ones, it is a good clue for an integrated HGT sequence.
 2.2- Check if the 2 sequences have some differences at the nucleotid level, if they does not and are 100% identical, it can be a contamination.
 
