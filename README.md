@@ -23,41 +23,41 @@ For the taxid informations, see the Peter Thorpe's instuctions here: [Instructio
 
 ###For the process to be more accessible and understandable by everyone, we will name in this example the species 1: ```0035``` and the species 2: ```0042```
 
-#Let's run Busco to find conserved unique genes inside our 2 genomes: (please change informations inside these files to fit with your data)
+Let's run Busco to find conserved unique genes inside our 2 genomes: (please change informations inside these files to fit with your data)
 ```bash Busco_run_sp1.sh
 bash Busco_run_sp2.sh
 ```
-#Outfiles:
+Outfiles:
 * run_sp1_BUSCO_v2 
 * run_sp1_BUSCO_v2
 With inside these folders, the Busco sequences in aa and dna formats "single_copy_busco_sequences", a short summary of Busco found and the retraining parameters for Augustus "/augustus_output/retraining_parameters".
 
-#Now that we got the Busco output files, we'll keep only completes and conserved sequences into both species.
+Now that we got the Busco output files, we'll keep only completes and conserved sequences into both species.
 ```python3 Order_paired_seq.py  -s1 0035 -s2 0042 -d1 /Users/etudiant/Desktop/Horizon_project/Buscou.out/single_copy_busco_sequences_0035/ -d2 /Users/etudiant/Desktop/Horizon_project/Buscou.out/single_copy_busco_sequences_0042/ -t1 full_table_ACG-0035_BUSCO_v2.tsv -t2 full_table_ACG-0042_BUSCO_v2.tsv
 ```
-#Outifiles:
+Outifiles:
 * sp1.faa (amino acide format)
 * sp2.faa
 * sp1.fna (nucleotide format)
 * sp2.fna
 
-#Then, you'll get 4 fasta files ready to be analyzed with the divergence.py program: 
+Then, you'll get 4 fasta files ready to be analyzed with the divergence.py program: 
 ```
 python3 divergence.py -f1 0035.fna -f2 0042.fna -f3 0035.faa -f4 0042.fna -m ML -a /Users/etudiant/Downloads/muscle3.8.31_i86darwin64 -o dn_ds_Busco.out 
 ```
-#Outfiles:
+Outfiles:
 * dn_ds_Busco.out  
 
 #Here you got the distances of Busco paired sequences with a ML method.
 
-#Now, we will have to try to find all possible genes present in our 2 genomes with augustus: (please change information inside these files to fit with your own data)
+Now, we will have to try to find all possible genes present in our 2 genomes with augustus: (please change information inside these files to fit with your own data)
 ```bash augustus_run_sp1_training_sp1.sh #outfile : run_augustus_sp1_training_sp1.out (gff format)
 bash augustus_run_sp1_training_sp2.sh #outfile : run_augustus_sp1_training_sp2.out (gff format)
 bash augustus_run_sp2_training_sp2.sh #outfile : run_augustus_sp2_training_sp2.out (gff format)
 bash augustus_run_sp2_training_sp1.sh #outfile : run_augustus_sp2_training_sp1.out (gff format)
 ```
 
-#Now that you got the augustus ouptufiles in gff format, you'll have to get the fasta format of the CDS sequences (takes the phase into account as expected -x option and so does the -y option for protein).
+Now that you got the augustus ouptufiles in gff format, you'll have to get the fasta format of the CDS sequences (takes the phase into account as expected -x option and so does the -y option for protein).
 * -g ACG-0035-scaffold.fa  is the genome file of the sp1 for exemple.
 
 ```/Users/etudiant/Downloads/gffread-0.9.9-0/bin/gffread /Users/etudiant/Desktop/Horizon_project/Augustus/Augustus_out/run_augustus_sp1_training_sp1.out -g /Users/etudiant/Desktop/Horizon_project/Buscou.out/ACG-0035-scaffold.fa -x run_augustus_sp1_training_sp1.out.fna -y run_augustus_sp1_training_sp1.out.faa
@@ -69,9 +69,9 @@ bash augustus_run_sp2_training_sp1.sh #outfile : run_augustus_sp2_training_sp1.o
 /Users/etudiant/Downloads/gffread-0.9.9-0/bin/gffread /Users/etudiant/Desktop/Horizon_project/Augustus/Augustus_out/run_augustus_sp2_training_sp1.out -g /Users/etudiant/Desktop/Horizon_project/Buscou.out/ACG-0042-scaffold.fa -x run_augustus_sp2_training_sp1.out.fna -y run_augustus_sp2_training_sp1.out.faa
 ```
 
-#Outfiles are the -x and -y parameters
+Outfiles are the -x and -y parameters
 
-#Now we will have to find homologous sequences into all these predicted sequences, to do so, first we will have to concatenate all sequences into one aa file. 
+Now we will have to find homologous sequences into all these predicted sequences, to do so, first we will have to concatenate all sequences into one aa file. 
 #But first, please name and marque your sequences with their respective number to recognize them at the end of the process. To do so:
 #Add the specie number after all ".t1" patterns, please replace your own number in the code below.
 
@@ -85,12 +85,12 @@ sed 's/\(.t1\)/\1_0035_0042/' run_augustus_sp1_training_sp2.out.fna > augustus_s
 sed 's/\(.t1\)/\1_0042_0042/' run_augustus_sp2_training_sp2.out.fna > augustus_sp2_training_sp2.out.fna
 sed 's/\(.t1\)/\1_0042_0035/' run_augustus_sp2_training_sp1.out.fna > augustus_sp2_training_sp1.out.fna
 ```
-#Concatenate these 4 files into one:
+Concatenate these 4 files into one:
 ```cat augustus_sp1_training_sp1.out.faa augustus_sp1_training_sp2.out.faa augustus_sp2_training_sp2.out.faa augustus_sp2_training_sp1.out.faa > concatenate_0035_0042.faa 
 
 cat augustus_sp1_training_sp1.out.fna augustus_sp1_training_sp2.out.fna augustus_sp2_training_sp2.out.fna augustus_sp2_training_sp1.out.fna > concatenate_0035_0042.fna
 ```
-#Outfiles:
+Outfiles:
 * concatenate_0035_0042.faa 
 * concatenate_0035_0042.fna
 
@@ -98,13 +98,13 @@ cat augustus_sp1_training_sp1.out.fna augustus_sp1_training_sp2.out.fna augustus
 
 #Let's make a Blast database of or sequences:
 
-#DIAMOND
+DIAMOND
 ```Diamond=/Users/etudiant/Downloads/diamond-master/bin/diamond```
-#Database (-d is the output db file in .dmnd extention)
+Database (-d is the output db file in .dmnd extention)
 ```protein_fasta=concatenate_0035_0042.faa ```
 ```$Diamond makedb --in $protein_fasta -d Augustus_diamond_0035_0042```
 
-#Let's now make a Blastp all against all with Diamond:
+Let's now make a Blastp all against all with Diamond:
 
 #DIAMOND
 ```Diamond=/Users/etudiant/Downloads/diamond-master/bin/diamond
@@ -116,7 +116,7 @@ out=matches_Augustus_0035_0042.m8
 
 ```$Diamond blastp -d $nr -q $protein_fasta  -o $out```
 
-#Finnaly, we'll have to get cluster of these sequences with Silix:
+Finnaly, we'll have to get cluster of these sequences with Silix:
 #SOFTWARE
 ```SILIX=/Users/etudiant/Downloads/silix-1.2.10-p1/src/silix```
 
@@ -127,33 +127,32 @@ FASTA=concatenate_0035_0042.faa```
 $SILIX  $FASTA $BLAST -f cluster_ -n > cluster_Augustus_0035_0042.fnodes
 ```
 
-#Now we only want to get the 2 paired sequences into cluster with the best pident of the mean HSP: 
+Now we only want to get the 2 paired sequences into cluster with the best pident of the mean HSP: 
 ```
 python3 cluster_silix_merging.py -b matches_Augustus_0035_0042.m8 -c cluster_Augustus_0035_0042.fnodes -d matches_Augustus_0035_0042.net -f1 concatenate_0035_0042.faa -f2 concatenate_0035_0042.fna 
 ```
-#Outfiles: These files are the files were are only present homologous sequences whith the best pident within each cluster. In order. 
+Outfiles: These files are the files were are only present homologous sequences whith the best pident within each cluster. In order. 
 * clusters1_aa.fasta
 * clusters2_aa.fasta
 * clusters1_dna.fasta
 * clusters2_dna.fasta
 
-#Then, we will calculate the distances values of all these predicted paired genes: (the fact to add -names will re-organise the dN_dS output tab)
+Then, we will calculate the distances values of all these predicted paired genes: (the fact to add -names will re-organise the dN_dS output tab)
 ```python3 divergence.py -f1 clusters1_dna.fasta -f2 clusters2_dna.fasta -f3 clusters1_aa.fasta -f4 clusters2_aa.fasta -m ML -a /Users/etudiant/Downloads/muscle3.8.31_i86darwin64 -n1 0035 -n2 0042 -o dn_ds_Augustus.out
 ```
-#Outfile:
+Outfile:
 * dn_ds_Augustus.out 
 
-#We will only keep within all these paired sequences the ones wich have passed through the p.value and the Cov thresholds:
+We will only keep within all these paired sequences the ones wich have passed through the p.value and the Cov thresholds:
 ```python3 gff_cov.py -d1 dn_ds_Busco.out -d2 dn_ds_Augustus.out  -s1 0035 -s2 0042 -c1 cov_GC_0035.tab -c2 cov_GC_0042.tab -g1 run_augustus_0035.out -g2 run_augustus_0035_training_0042.out -g3 run_augustus_0042.out -g4 run_augustus_0042_training_0035.out -g5 gff_Busco_0035 -g6 gff_Busco_0042
 ```
 
-#Outfiles:
-
+Outfiles:
 * candidates_genes_pvalue_cov_0035_0042.tab (Final output with candidates genes predicted by Augustus after passing through the filter p-value and coverage)
 * Augustus_clustering.tab (Outut table of Augustus predicted genes after passing through the clustering filter (max pident within each cluster)
 * candidates_genes_pvalue_0035_0042.tab (Final output with candidates genes predicted by Augustus after passing through the filter p-value:)
 
-#Final fasta output with candidates genes predicted by Augustus after passing through the filter p-value (this file will be usefull for the blast against the nr db step).
+Final fasta output with candidates genes predicted by Augustus after passing through the filter p-value (this file will be usefull for the blast against the nr db step).
 * candidates_aa_pvalue_0035.fasta
 * candidates_aa_pvalue_0042.fasta
 * candidates_dna_pvalue_0035.fasta
@@ -161,29 +160,29 @@ python3 cluster_silix_merging.py -b matches_Augustus_0035_0042.m8 -c cluster_Aug
 
 #The following steps will have to be done with a program developped by Peter Thorpe, all needed files are available here : (https://github.com/peterthorpe5/public_scripts/tree/master/Diamond_BLAST_add_taxonomic_info)
 
-#Now that we got the candidates genes, to characterize them, we will perform a blastp against the nr database: (please change information inside these files to fit with your own data)
-#Note that this will take into account all genes passed through the p.value filter only (if you only want those with p.value + cov, please change the input fasta file)
+Now that we got the candidates genes, to characterize them, we will perform a blastp against the nr database: (please change information inside these files to fit with your own data)
+Note that this will take into account all genes passed through the p.value filter only (if you only want those with p.value + cov, please change the input fasta file)
 ```bash Diamond_blastp_sp1_candidates.sh
 bash Diamond_blastp_sp2_candidates.sh
 ```
 
-#Outfiles:
+Outfiles:
 * matches_sp1_candidates.m8 (blast output table of the sp1)
 * matches_sp2_candidates.m8 (blast output table of the sp2)
 
-#Finnaly to be more readable, we can get taxid informations about these HGT candidates genes.(cf Peter Thorpe program).
+Finnaly to be more readable, we can get taxid informations about these HGT candidates genes.(cf Peter Thorpe program).
 ```bash tax_name_sp1.sh
 bash tax_name_sp2.sh
 ```
 
-#Output files for sp1:
+Output files for sp1:
 * outfile_0035.tab (Blast output table with taxid informations)
 * outfile_0035.tab_top_blast_hits.out (Best blast output table with taxid informations)
 * outfile_0035.tab_top_blast_hits.out_based_on_order_tax_king.tab
 * outfile_0035.tab_top_blast_hits.out_histogram.png (Summary plot of the blast result)
 
 
-#Now that you got all the candidate genes, you'll have to do multiples thing to check if your candidate is as real HGT and integrated.
+Now that you got all the candidate genes, you'll have to do multiples thing to check if your candidate is as real HGT and integrated.
 # Here are the steps:
 
 1 - Construct a phylogenetic tree and see if there is an incongruence:
