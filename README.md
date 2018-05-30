@@ -14,6 +14,7 @@ What things you need to install:
 * Diamond (make a quick blastp to find homologous genes): [Diamond](https://github.com/bbuchfink/diamond)
 * Silix (creat cluster within genes): [SiliX](http://lbbe.univ-lyon1.fr/Download.html) ask the authors for the version "silix-1.2.10-p1" 
 * Seaview (build a tree): [SeaView](http://doua.prabi.fr/software/seaview)
+* Muscle (alignment) : [Muscle](https://www.drive5.com/muscle/downloads.htm)
 
 Databases: 
 The nr database available here: (ftp://ftp.ncbi.nlm.nih.gov/blast/db/) (huge file).
