@@ -16,7 +16,7 @@ What things you need to install:
 * Seaview (build a tree): [SeaView](http://doua.prabi.fr/software/seaview)
 
 Databases: 
-The nr database available here: [nr db](ftp://ftp.ncbi.nlm.nih.gov/blast/db/) (huge file).
+The nr database available here: (ftp://ftp.ncbi.nlm.nih.gov/blast/db/) (huge file).
 For the taxid informations, see the Peter Thorpe's instuctions here: [Instructions](https://github.com/peterthorpe5/public_scripts/tree/master/Diamond_BLAST_add_taxonomic_info)
 
 ### Run example
