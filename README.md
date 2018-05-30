@@ -21,7 +21,7 @@ For the taxid informations, see the Peter Thorpe's instuctions here: [Instructio
 
 ### Run example
 
-###For the process to be more accessible and understandable by everyone, we will name in this example the species 1: '0035' and the species 2: '0042'
+###For the process to be more accessible and understandable by everyone, we will name in this example the species 1: ```0035``` and the species 2: ```0042```
 
 #Let's run Busco to find conserved unique genes inside our 2 genomes: (please change informations inside these files to fit with your data)
 ```bash Busco_run_sp1.sh
@@ -42,7 +42,9 @@ With inside these folders, the Busco sequences in aa and dna formats "single_cop
 * sp2.fna
 
 #Then, you'll get 4 fasta files ready to be analyzed with the divergence.py program: 
+```
 python3 divergence.py -f1 0035.fna -f2 0042.fna -f3 0035.faa -f4 0042.fna -m ML -a /Users/etudiant/Downloads/muscle3.8.31_i86darwin64 -o dn_ds_Busco.out 
+```
 #Outfiles:
 * dn_ds_Busco.out  
 
