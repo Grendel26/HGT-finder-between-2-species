@@ -46,7 +46,8 @@ Outifiles:
 * sp2.fna
 
 Then, you'll get 4 fasta files ready to be analyzed with the divergence.py program: 
-```python3 divergence.py -f1 0035.fna -f2 0042.fna -f3 0035.faa -f4 0042.fna -m ML -a /Users/etudiant/Downloads/muscle3.8.31_i86darwin64 -o dn_ds_Busco.out 
+```
+python3 divergence.py -f1 0035.fna -f2 0042.fna -f3 0035.faa -f4 0042.fna -m ML -a /Users/etudiant/Downloads/muscle3.8.31_i86darwin64 -o dn_ds_Busco.out 
 ```
 Outfiles:
 * dn_ds_Busco.out  
@@ -102,7 +103,9 @@ Outfiles:
 #Let's make a Blast database of or sequences:
 
 DIAMOND
-```Diamond=/Users/etudiant/Downloads/diamond-master/bin/diamond```
+```
+Diamond=/Users/etudiant/Downloads/diamond-master/bin/diamond
+```
 Database (-d is the output db file in .dmnd extention)
 ```protein_fasta=concatenate_0035_0042.faa 
 $Diamond makedb --in $protein_fasta -d Augustus_diamond_0035_0042
@@ -122,7 +125,9 @@ $Diamond blastp -d $nr -q $protein_fasta  -o $out
 ```
 Finnaly, we'll have to get cluster of these sequences with Silix:
 #SOFTWARE
-```SILIX=/Users/etudiant/Downloads/silix-1.2.10-p1/src/silix```
+```
+SILIX=/Users/etudiant/Downloads/silix-1.2.10-p1/src/silix
+```
 
 #DATASET USED
 ```BLAST=matches_Augustus_0035_0042.m8 
@@ -142,13 +147,15 @@ Outfiles: These files are the files were are only present homologous sequences w
 * clusters2_dna.fasta
 
 Then, we will calculate the distances values of all these predicted paired genes: (the fact to add -names will re-organise the dN_dS output tab)
-```python3 divergence.py -f1 clusters1_dna.fasta -f2 clusters2_dna.fasta -f3 clusters1_aa.fasta -f4 clusters2_aa.fasta -m ML -a /Users/etudiant/Downloads/muscle3.8.31_i86darwin64 -n1 0035 -n2 0042 -o dn_ds_Augustus.out
+```
+python3 divergence.py -f1 clusters1_dna.fasta -f2 clusters2_dna.fasta -f3 clusters1_aa.fasta -f4 clusters2_aa.fasta -m ML -a /Users/etudiant/Downloads/muscle3.8.31_i86darwin64 -n1 0035 -n2 0042 -o dn_ds_Augustus.out
 ```
 Outfile:
 * dn_ds_Augustus.out 
 
 We will only keep within all these paired sequences the ones wich have passed through the p.value and the Cov thresholds:
-```python3 gff_cov.py -d1 dn_ds_Busco.out -d2 dn_ds_Augustus.out  -s1 0035 -s2 0042 -c1 cov_GC_0035.tab -c2 cov_GC_0042.tab -g1 run_augustus_0035.out -g2 run_augustus_0035_training_0042.out -g3 run_augustus_0042.out -g4 run_augustus_0042_training_0035.out -g5 gff_Busco_0035 -g6 gff_Busco_0042
+```
+python3 gff_cov.py -d1 dn_ds_Busco.out -d2 dn_ds_Augustus.out  -s1 0035 -s2 0042 -c1 cov_GC_0035.tab -c2 cov_GC_0042.tab -g1 run_augustus_0035.out -g2 run_augustus_0035_training_0042.out -g3 run_augustus_0042.out -g4 run_augustus_0042_training_0035.out -g5 gff_Busco_0035 -g6 gff_Busco_0042
 ```
 
 Outfiles:
@@ -166,7 +173,8 @@ Final fasta output with candidates genes predicted by Augustus after passing thr
 
 Now that we got the candidates genes, to characterize them, we will perform a blastp against the nr database: (please change information inside these files to fit with your own data)
 Note that this will take into account all genes passed through the p.value filter only (if you only want those with p.value + cov, please change the input fasta file)
-```bash Diamond_blastp_sp1_candidates.sh
+```
+bash Diamond_blastp_sp1_candidates.sh
 bash Diamond_blastp_sp2_candidates.sh
 ```
 
@@ -175,7 +183,8 @@ Outfiles:
 * matches_sp2_candidates.m8 (blast output table of the sp2)
 
 Finnaly to be more readable, we can get taxid informations about these HGT candidates genes.(cf Peter Thorpe program).
-```bash tax_name_sp1.sh
+```
+bash tax_name_sp1.sh
 bash tax_name_sp2.sh
 ```
 
