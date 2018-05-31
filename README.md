@@ -56,11 +56,30 @@ python3 divergence.py -f1 0035.fna -f2 0042.fna -f3 0035.faa -f4 0042.fna -m ML 
 ```
 Outfiles:
 * dn_ds_Busco.out  
+#### Table format
+
+| seq.id | dN | dS | Dist_third_pos | Dist_brute | Length_seq_1 |Length_seq2 | GC_content_seq1 | GC_content_seq2 | GC | Mean_length |
+| ------ |:--:| :-:| :-------------:| :---------:| :-----------:| :---------:| :--------------:| :--------------:| :-:| -----------:|
+
+
+Where:
+* seq.id : Busco seq name 
+* dN : Nonsynoymous distance 
+* dS : Synonymous distance 
+* Dist_third_pos : Distance at the third codon position 
+* Dist_brute : Distance at all sites 
+* Length_seq : Length of the sequence 
+* GC_content_seq : GC content of the sequence 
+* GC : GC mean between the two sequences 
+* Mean_length : The smallest length 
+
 
 #Here you got the distances of Busco paired sequences with a ML method.
 
+
 Now, we will have to try to find all possible genes present in our 2 genomes with augustus: (please change information inside these files to fit with your own data)
-```bash augustus_run_sp1_training_sp1.sh #outfile : run_augustus_sp1_training_sp1.out (gff format)
+```
+bash augustus_run_sp1_training_sp1.sh #outfile : run_augustus_sp1_training_sp1.out (gff format)
 bash augustus_run_sp1_training_sp2.sh #outfile : run_augustus_sp1_training_sp2.out (gff format)
 bash augustus_run_sp2_training_sp2.sh #outfile : run_augustus_sp2_training_sp2.out (gff format)
 bash augustus_run_sp2_training_sp1.sh #outfile : run_augustus_sp2_training_sp1.out (gff format)
@@ -69,7 +88,8 @@ bash augustus_run_sp2_training_sp1.sh #outfile : run_augustus_sp2_training_sp1.o
 Now that you got the augustus ouptufiles in gff format, you'll have to get the fasta format of the CDS sequences (takes the phase into account as expected -x option and so does the -y option for protein).
 * -g ACG-0035-scaffold.fa  is the genome file of the sp1 for exemple.
 
-```/Users/etudiant/Downloads/gffread-0.9.9-0/bin/gffread /Users/etudiant/Desktop/Horizon_project/Augustus/Augustus_out/run_augustus_sp1_training_sp1.out -g /Users/etudiant/Desktop/Horizon_project/Buscou.out/ACG-0035-scaffold.fa -x run_augustus_sp1_training_sp1.out.fna -y run_augustus_sp1_training_sp1.out.faa
+```
+/Users/etudiant/Downloads/gffread-0.9.9-0/bin/gffread /Users/etudiant/Desktop/Horizon_project/Augustus/Augustus_out/run_augustus_sp1_training_sp1.out -g /Users/etudiant/Desktop/Horizon_project/Buscou.out/ACG-0035-scaffold.fa -x run_augustus_sp1_training_sp1.out.fna -y run_augustus_sp1_training_sp1.out.faa
 
 /Users/etudiant/Downloads/gffread-0.9.9-0/bin/gffread /Users/etudiant/Desktop/Horizon_project/Augustus/Augustus_out/run_augustus_sp1_training_sp2.out -g /Users/etudiant/Desktop/Horizon_project/Buscou.out/ACG-0035-scaffold.fa -x run_augustus_sp1_training_sp2.out.fna -y run_augustus_sp1_training_sp2.out.faa
 
@@ -84,7 +104,8 @@ Now we will have to find homologous sequences into all these predicted sequences
 #But first, please name and marque your sequences with their respective number to recognize them at the end of the process. To do so:
 #Add the specie number after all ".t1" patterns, please replace your own number in the code below.
 
-```sed 's/\(.t1\)/\1_0035_0035/' run_augustus_sp1_training_sp1.out.faa > augustus_sp1_training_sp1.out.faa 
+```
+sed 's/\(.t1\)/\1_0035_0035/' run_augustus_sp1_training_sp1.out.faa > augustus_sp1_training_sp1.out.faa 
 sed 's/\(.t1\)/\1_0035_0042/' run_augustus_sp1_training_sp2.out.faa > augustus_sp1_training_sp2.out.faa
 sed 's/\(.t1\)/\1_0042_0042/' run_augustus_sp2_training_sp2.out.faa > augustus_sp2_training_sp2.out.faa
 sed 's/\(.t1\)/\1_0042_0035/' run_augustus_sp2_training_sp1.out.faa > augustus_sp2_training_sp1.out.faa
@@ -95,7 +116,8 @@ sed 's/\(.t1\)/\1_0042_0042/' run_augustus_sp2_training_sp2.out.fna > augustus_s
 sed 's/\(.t1\)/\1_0042_0035/' run_augustus_sp2_training_sp1.out.fna > augustus_sp2_training_sp1.out.fna
 ```
 Concatenate these 4 files into one:
-```cat augustus_sp1_training_sp1.out.faa augustus_sp1_training_sp2.out.faa augustus_sp2_training_sp2.out.faa augustus_sp2_training_sp1.out.faa > concatenate_0035_0042.faa 
+```
+cat augustus_sp1_training_sp1.out.faa augustus_sp1_training_sp2.out.faa augustus_sp2_training_sp2.out.faa augustus_sp2_training_sp1.out.faa > concatenate_0035_0042.faa 
 
 cat augustus_sp1_training_sp1.out.fna augustus_sp1_training_sp2.out.fna augustus_sp2_training_sp2.out.fna augustus_sp2_training_sp1.out.fna > concatenate_0035_0042.fna
 ```
@@ -157,8 +179,14 @@ python3 divergence.py -f1 clusters1_dna.fasta -f2 clusters2_dna.fasta -f3 cluste
 ```
 Outfile:
 * dn_ds_Augustus.out 
+#### Table format
 
-We will only keep within all these paired sequences the ones wich have passed through the p.value and the Cov thresholds:
+| seq1.id | seq2_id | dN | dS | Dist_third_pos | Dist_brute | Length_seq_1 |Length_seq2 | GC_content_seq1 | GC_content_seq2 | GC | Mean_length |
+| ------- |:-------:|:--:|:-:| :-------------:| :---------:| :-----------:| :---------:| :--------------:| :--------------:| :-:| -----------:|
+
+Where seqn_id is the name of the sequence n
+
+We will only keep within all these paired sequences the ones wich have passed through the dS and the Cov thresholds:
 ```
 python3 gff_cov.py -d1 dn_ds_Busco.out -d2 dn_ds_Augustus.out  -s1 0035 -s2 0042 -c1 cov_GC_0035.tab -c2 cov_GC_0042.tab -g1 run_augustus_0035.out -g2 run_augustus_0035_training_0042.out -g3 run_augustus_0042.out -g4 run_augustus_0042_training_0035.out -g5 gff_Busco_0035 -g6 gff_Busco_0042
 ```
@@ -168,7 +196,7 @@ Outfiles:
 * Augustus_clustering.tab (Outut table of Augustus predicted genes after passing through the clustering filter (max pident within each cluster)
 * candidates_genes_pvalue_0035_0042.tab (Final output with candidates genes predicted by Augustus after passing through the filter p-value:)
 
-Final fasta output with candidates genes predicted by Augustus after passing through the filter p-value (this file will be usefull for the blast against the nr db step).
+Final fasta output with candidates genes predicted by Augustus after passing through the filter dS (this file will be usefull for the blast against the nr db step).
 * candidates_aa_pvalue_0035.fasta
 * candidates_aa_pvalue_0042.fasta
 * candidates_dna_pvalue_0035.fasta
@@ -177,7 +205,7 @@ Final fasta output with candidates genes predicted by Augustus after passing thr
 #The following steps will have to be done with a program developped by Peter Thorpe, all needed files are available here : (https://github.com/peterthorpe5/public_scripts/tree/master/Diamond_BLAST_add_taxonomic_info)
 
 Now that we got the candidates genes, to characterize them, we will perform a blastp against the nr database: (please change information inside these files to fit with your own data)
-Note that this will take into account all genes passed through the p.value filter only (if you only want those with p.value + cov, please change the input fasta file)
+Note that this will take into account all genes passed through the dS filter only (if you only want those with dS + cov, please change the input fasta file)
 ```
 bash Diamond_blastp_sp1_candidates.sh
 bash Diamond_blastp_sp2_candidates.sh
@@ -193,12 +221,21 @@ bash tax_name_sp1.sh
 bash tax_name_sp2.sh
 ```
 
+
 Output files for sp1:
 * outfile_0035.tab (Blast output table with taxid informations)
 * outfile_0035.tab_top_blast_hits.out (Best blast output table with taxid informations)
 * outfile_0035.tab_top_blast_hits.out_based_on_order_tax_king.tab
 * outfile_0035.tab_top_blast_hits.out_histogram.png (Summary plot of the blast result)
 
+You can use this script to also include sequence with no blast hit and get a final tabl with all information: .
+```
+python3 get_dataframe_candidates.py -c candidates_genes_pvalue_0035_0042.tab -b1 outfile_0035.tab_top_blast_hits.csv -b2 outfile_0042.tab_top_blast_hits.csv -s1 0035 -s2 0042
+```
+Outpud files: 
+* All_candidates_cov_all_inf.tab (Table with all informations with all candidats passed through the dS and covergae threshold).
+* Summarize_All_candidates_with_all_inf.tab (Table with more important informations with all candidats passed through the dS threshold).
+* All_candidates_with_all_inf.tab (Table with all informations with all candidats passed through the dS threshold).
 
 Now that you got all the candidate genes, you'll have to do multiples thing to check if your candidate is as real HGT and integrated.
 ## Here are the steps:
