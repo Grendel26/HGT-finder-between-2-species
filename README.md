@@ -47,8 +47,8 @@ Outifiles:
 * sp2.faa
 * sp1.fna (nucleotide format)
 * sp2.fna
-* concatened_sp1 (contains the aa and dna sequences of sp1 in order)
-* concatened_sp2 (contains the aa and dna sequences of sp2 in order)
+* concatened_sp1.fst (contains the aa and dna sequences of sp1 in order)
+* concatened_sp2.fst (contains the aa and dna sequences of sp2 in order)
 
 Then, you'll get 4 fasta files ready to be analyzed with the divergence.py program: 
 ```
