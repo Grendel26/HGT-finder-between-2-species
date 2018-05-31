@@ -1,9 +1,6 @@
 
 ## HORIZONA is a program coded essentially in python3.5 through the Horizon project (all python codes are made by hand and calling other packages already written). Its aim is to find horizontal gene transfers between two distantly related species.
 
-![abstract-hgt-anglais-1](https://user-images.githubusercontent.com/39563212/40718482-75bac984-6410-11e8-872c-b6aa742c51c2.jpg)
-
-
 ### Prerequisites
 
 What things you need to install:
