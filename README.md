@@ -218,7 +218,6 @@ bash tax_name_sp1.sh
 bash tax_name_sp2.sh
 ```
 
-
 Output files for sp1:
 * outfile_0035.tab (Blast output table with taxid informations)
 * outfile_0035.tab_top_blast_hits.out (Best blast output table with taxid informations)
@@ -233,6 +232,12 @@ Outpud files:
 * All_candidates_cov_all_inf.tab (Table with all information with all candidats passed through the dS and covergae threshold).
 * Summarize_All_candidates_with_all_inf.tab (Table with more important information with all candidats passed through the dS threshold).
 * All_candidates_with_all_inf.tab (Table with all information with all candidats passed through the dS threshold).
+
+### Table content of the summary file:
+| seq1.id | seq2.id | dN | dS | Dist_third_pos | Dist_brute | Mean_length| Length_seq_1 |Length_seq2 | GC_content_seq1 | GC_content_seq2 | caf_name_seq1 | GC_scaff_seq1scaf_name_seq1 | cov_depth_seq1 |scaf_name_seq2 | GC_scaff_seq2 | cov_depth_seq2 | sseqid_sp1 | evalue_sp1 |
+| salltitles_sp1 | scientific_name_sp1 | Order_sp1	sseqid_sp2 | sseqid_sp2 | evalue_sp2 | salltitles_sp2 | scientific_name_sp2 | Order_sp2 |
+
+
 
 Now that you got all the candidate genes, you'll have to do multiples thing to check if your candidate is as real HGT and integrated.
 ## Here are the steps:
