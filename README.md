@@ -225,14 +225,14 @@ Output files for sp1:
 * outfile_0035.tab_top_blast_hits.out_based_on_order_tax_king.tab
 * outfile_0035.tab_top_blast_hits.out_histogram.png (Summary plot of the blast result)
 
-You can use this script to also include sequence with no blast hit and get a final tabl with all information: .
+You can use this script to also include sequence with no blast hit and get a final table with all information: .
 ```
 python3 get_dataframe_candidates.py -c candidates_genes_pvalue_0035_0042.tab -b1 outfile_0035.tab_top_blast_hits.csv -b2 outfile_0042.tab_top_blast_hits.csv -s1 0035 -s2 0042
 ```
 Outpud files: 
-* All_candidates_cov_all_inf.tab (Table with all informations with all candidats passed through the dS and covergae threshold).
-* Summarize_All_candidates_with_all_inf.tab (Table with more important informations with all candidats passed through the dS threshold).
-* All_candidates_with_all_inf.tab (Table with all informations with all candidats passed through the dS threshold).
+* All_candidates_cov_all_inf.tab (Table with all information with all candidats passed through the dS and covergae threshold).
+* Summarize_All_candidates_with_all_inf.tab (Table with more important information with all candidats passed through the dS threshold).
+* All_candidates_with_all_inf.tab (Table with all information with all candidats passed through the dS threshold).
 
 Now that you got all the candidate genes, you'll have to do multiples thing to check if your candidate is as real HGT and integrated.
 ## Here are the steps:
