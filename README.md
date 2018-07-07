@@ -1,5 +1,5 @@
 
-## HORIZONA is a program coded essentially in python3.5 through the Horizon project (all python codes are made by hand and calling other packages already written). Its aim is to find horizontal gene transfers between two distantly related species.
+## HORIZONA is a pipeline coded essentially in python3.5 through the Horizon project (all python codes are made by hand and calling other packages already written). Its aim is to find horizontal gene transfers between two distantly related species.
 
 ### Prerequisites
 
@@ -260,5 +260,5 @@ Now that you got all the candidate genes, you'll have to do multiples thing to c
 
 ## Acknowledgments
 This work was performed using the computing facilities of the CC LBBE/PRABI. 	
-Heartfelt thanks to all LBBE contributors for their help during the realization of this program.	
+Heartfelt thanks to all LBBE contributors for their help during the realization of this pipeline.	
 
