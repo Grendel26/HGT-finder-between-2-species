@@ -246,7 +246,7 @@ Now that you got all the candidate genes, you'll have to do multiples thing to c
 1.1 - Take your target sequence in amino acide format and make a research of homologous sequences against the nr databe.
 1.2 - Align all these sequences with Seaview (Gouy M et al.,2010 available here : http://doua.prabi.fr/software/seaview) for exemple, align all these sequences and use Gblocks program to select only blocks of evolutionarily conserved sites.
 1.3 - Construct your tree with a Maximum likelihood method (or a baysian method, not availabe on seaview but you can use MrBaye) and add boostrap analysis (or a LRT if you want to be faster).
-1.4 - If their is an incongruence and a good bootstrap support, then your sequence is probably an HGT since the two species are diverging from a long time. 
+1.4 - If there is an incongruence and a good bootstrap support, then your sequence is probably an HGT since the two species are diverging from a long time. 
 
 2 - Check if this sequence is a contamination, not integrated one or if it is incorporated into the host genome:
 2.1- If this sequence is found in a scaffold where you have found other predicted genes or even BUSCO ones, it is a good clue for an integrated HGT sequence.
